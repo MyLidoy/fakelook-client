@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  postsUrl: "https://localhost:44349/api/Posts"
+  postsUrl: "https://localhost:44349/api/Posts",
+  loginUrl:"https://localhost:44349/api/Auth/Login"
 };
 
 /*
