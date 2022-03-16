@@ -17,8 +17,10 @@ export class LoginComponent implements OnInit {
   alertEmpty:boolean;
   alertMail:boolean;
   alertPassword:boolean;
-  token!:string;
+  
   userNotFound!:boolean;
+  user!:IUser;
+  
 
 
 
@@ -48,8 +50,13 @@ export class LoginComponent implements OnInit {
       user.mail=this.mail;
       this.userService.login(user).subscribe((result)=>{
       
-      this.token=result.token;
-      console.log(this.token)
+        this.user=result.dbUser;
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', this.user.id);
+        console.log(localStorage.getItem("userId"))
+        console.log(localStorage.getItem("token"))
+
+      
       },(error) => 
       {
         

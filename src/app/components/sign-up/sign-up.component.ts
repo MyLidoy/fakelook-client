@@ -15,12 +15,13 @@ export class SignUpComponent implements OnInit {
   address!:string;
   companyName!:string;
   birthDate!:Date;
-  token!:string;
+  
   alertEmpty:boolean;
   alertMail:boolean;
   alertPassword:boolean;
   alertName:boolean;
   mailExistInDB:boolean;
+  user!:IUser;
 
 
   constructor(private userService:UserService) 
@@ -58,9 +59,15 @@ export class SignUpComponent implements OnInit {
       user.address=this.address;
       user.companyName=this.companyName;
       user.birthDate=this.birthDate;
-      console.log(user);
+      
       this.userService.signUp(user).subscribe((result)=>{
-        this.token=result.token;
+       
+        this.user=result.dbUser;
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', this.user.id);
+        console.log(localStorage.getItem("userId"))
+        console.log(localStorage.getItem("token"))
+        
 
       },(error)=>{
         this.mailExistInDB=true;

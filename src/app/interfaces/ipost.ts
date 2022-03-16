@@ -1,12 +1,12 @@
 
 
 export interface Ipost {
-    Id:Number;
-    Description:string;
-    ImageSorce:string;
-    X_Position:Number;
-    Y_Position:Number;
-    Z_Position:Number;
-    Date:Date;
+    id:Number;
+    description:string;
+    imageSorce:string;
+    x_Position:Number;
+    y_Position:Number;
+    z_Position:Number;
+    date:Date;
     
 }

@@ -1,0 +1,28 @@
+<div class="modal-content animate"  >
+    <div class="imgcontainer">
+      <!-- <span (click)="CloseClicked()" class="close" title="Close Modal">&times;</span> -->
+      
+    </div>
+  
+    <div class="container">
+     
+      <label for="picture"><b>Picture</b></label>
+      <!-- <input required type="text" placeholder="Enter Mail" name="uname" [(ngModel)]="mail" (keyup)="hideAlertMail()"  > -->
+      <!-- <div *ngIf="alertPassword" class="alert">*Password must contain at least 10 characters</div> -->
+      <label for="x"><b>X Location</b></label>
+      <input required type="text" placeholder="Enter X Location" name="x" [(ngModel)]="x_Position"  >
+
+      <label for="y"><b>Y Location</b></label>
+      <input required type="text" placeholder="Enter Y Location" name="y" [(ngModel)]="y_Position"  >
+
+      <label for="z"><b>Z Location</b></label>
+      <input required type="text" placeholder="Enter Z Location" name="y" [(ngModel)]="z_Position"  >
+
+      <label for="description"><b>Text</b></label>
+      <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
+      <button (click)="postClicked()" >Post</button>
+      
+      
+    </div>
+
+</div>
