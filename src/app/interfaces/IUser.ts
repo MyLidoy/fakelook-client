@@ -1,7 +1,10 @@
-
-
 export interface IUser {
-    mail:string,
-    password:string
+    id:string;
+    mail:string;
+    password:string;
+    name:string;
+    address:string;
+    companyName:string;
+    birthDate:Date;
     
 }

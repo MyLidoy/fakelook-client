@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interfaces/IUser';
 import { UserService } from 'src/app/services/user.service';
+import { validateEmail,validatePassword } from 'src/app/utils/validations';
 // import { mainModule } from 'process';
 
 @Component({
@@ -15,6 +17,8 @@ export class LoginComponent implements OnInit {
   alertEmpty:boolean;
   alertMail:boolean;
   alertPassword:boolean;
+  token!:string;
+  userNotFound!:boolean;
 
 
 
@@ -23,6 +27,9 @@ export class LoginComponent implements OnInit {
     this.alertEmpty=false;
     this.alertMail=false;
     this.alertPassword=false;
+    this.userNotFound=false;
+    this.mail="";
+    this.password=""
   }
 
   ngOnInit(): void {
@@ -31,44 +38,7 @@ export class LoginComponent implements OnInit {
   loginClicked()
   {
 
-    // let user ={} as IUser;
-    // if(this.allInputsNotEmpty())
-    // {
-    //   if(this.validateEmail() )
-    //   {
-    //     user.mail=this.mail;
-    //     if (this.validatePassword())
-    //     {
-    //       this.alertEmpty=false;
-    //       this.alertMail=false;
-    //       this.alertPassword=false;
-    //         user.password=this.password;
-    //         this.userService.login(user).subscribe((result)=>{
-    //           console.log(result);
-
-    //         },(error) => console.log(error))
-    //     }
-    //     else{
-    //       this.alertPassword=true;
-
-    //     }
-      
-
-    //   }
-    //   else
-    //   {
-    //     this.alertMail=true;
-
-    //   }
-
-    // }
-    // else
-    // {
-    //   this.alertEmpty=true;
-
-    // }
-
-    if(this.validateEmail()&& this.allInputsNotEmpty()  &&this.validatePassword())
+    if(validateEmail(this.mail)&& this.allInputsNotEmpty() && validatePassword(this.password))
     {
       this.alertEmpty=false;
       this.alertMail=false;
@@ -77,8 +47,19 @@ export class LoginComponent implements OnInit {
       user.password=this.password;
       user.mail=this.mail;
       this.userService.login(user).subscribe((result)=>{
-      console.log(result);
-      },(error) => console.log(error))
+      
+      this.token=result.token;
+      console.log(this.token)
+      },(error) => 
+      {
+        
+        if(error.status==500)
+        {
+          this.userNotFound=true;
+        }
+
+
+      });
       
     }
     else
@@ -90,11 +71,11 @@ export class LoginComponent implements OnInit {
       }
       else
       {
-        if(!this.validateEmail())
+        if(!validateEmail(this.mail))
         {
           this.alertMail=true;
         }
-        if(!this.validatePassword() )
+        if(!validatePassword(this.password) )
         {
           this.alertPassword=true;
         }
@@ -110,41 +91,26 @@ export class LoginComponent implements OnInit {
     CloseClicked(){
       
   }
-    validateEmail() 
-  {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.mail))
-    {
-      return (true)
-    }
-    else
-    {
-      return (false)
-    }
-      
-  }
+ 
   allInputsNotEmpty()
   {
-    if(this.mail==undefined||this.password==undefined)
+    if(this.mail==""||this.password=="")
       return false;
     else 
       return true;
   }
-  validatePassword()
-  {
-    if (this.password.length<10)
-      return false;
-    else 
-      return true;
-  }
+ 
   hideAlertMail()
   {
     this.alertEmpty=false;
     this.alertMail=false;
+    this.userNotFound=false;
 
   }
   hideAlertPassword(){
     this.alertEmpty=false;
     this.alertPassword=false;
+    this.userNotFound=false;
 
   }
 
