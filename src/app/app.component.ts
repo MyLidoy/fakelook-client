@@ -12,9 +12,7 @@ export class AppComponent implements OnInit{
   constructor(private PostService:PostService) {}
   
   ngOnInit():void{
-    this.PostService.getAllPosts().subscribe((result) => {
-      console.log(result)
-    })
+   
   }
   
   title = 'fakelook-client';

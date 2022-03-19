@@ -25,7 +25,14 @@ export function validateFullName(fullName:string)
 
 export function validatePassword(password:string)
 {
-  if (password.length<10)
+  if (password.length<6)
+    return false;
+  else 
+    return true;
+}
+export function validateFile(file:string)
+{
+  if (file==undefined)
     return false;
   else 
     return true;

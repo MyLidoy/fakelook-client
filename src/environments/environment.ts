@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   postsUrl: "https://localhost:44349/api/Posts",
   loginUrl:"https://localhost:44349/api/Auth/Login",
-  signUpUrl:"https://localhost:44349/api/Auth/SignUp"
+  signUpUrl:"https://localhost:44349/api/Auth/SignUp",
+  publishPostUrl:"https://localhost:44349/api/Posts/publish",
+  forgotPasswordtUrl:"https://localhost:44349/api/Auth/ForgotPassword",
+
 };
 
 /*

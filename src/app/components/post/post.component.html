@@ -1,7 +1,31 @@
-<div>
-    <img alt="picture" [src]="post.imageSorce" >
-</div>
-<br>
-<div>{{post.description}}</div>   
 
+<div class="border">
+    <div class="flex-container-center">
+        <div>Publisher: {{post.userId}}</div>
+        <img alt="picture" [src]="post.imageSorce" >
+        <div>{{post.description}}</div>
+    </div>
+    <br>
+    <br>
+    <div class="flex-container">
+        <div class="like">Like</div>
+        <div class="comments">Comments</div>
+        <button class="readMoreButton" (click)="readMoreClicked()">Read more</button>
+
+    </div>
+    <br>
+    <br>
+    <div *ngIf="allDetails">
+        <div>X : {{post.x_Position}}</div>
+        <div>Y : {{post.y_Position}}</div>
+        <div>Z : {{post.z_Position}}</div>
+        
+        <div>Date: {{ post.date | date:'medium' }} </div>
+        
+    </div>
+    
+</div>
+
+
+ 
 

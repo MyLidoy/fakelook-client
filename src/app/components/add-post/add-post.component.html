@@ -1,28 +1,41 @@
 <div class="modal-content animate"  >
-    <div class="imgcontainer">
-      <!-- <span (click)="CloseClicked()" class="close" title="Close Modal">&times;</span> -->
-      
-    </div>
-  
-    <div class="container">
-     
-      <label for="picture"><b>Picture</b></label>
-      <!-- <input required type="text" placeholder="Enter Mail" name="uname" [(ngModel)]="mail" (keyup)="hideAlertMail()"  > -->
-      <!-- <div *ngIf="alertPassword" class="alert">*Password must contain at least 10 characters</div> -->
-      <label for="x"><b>X Location</b></label>
-      <input required type="text" placeholder="Enter X Location" name="x" [(ngModel)]="x_Position"  >
+  <label><h1 for="uname"><b>New Post</b></h1></label>
+  <div class="imgcontainer">
+    <!-- <span (click)="CloseClicked()" class="close" title="Close Modal">&times;</span> -->
+    
+  </div>
 
-      <label for="y"><b>Y Location</b></label>
-      <input required type="text" placeholder="Enter Y Location" name="y" [(ngModel)]="y_Position"  >
+  <div class="container">
+    
+    <div class="alert" *ngIf="alertPicture">*please Enter Picture</div>
+    <label for="picture"><b>Picture</b></label>
+    <br><br>
+    <!-- <input type="file"  accept="image/*" name="browse"[(ngModel)]="imageSorce" (change)="readURL($event)" ><br><br>
+    <img [src]="imageSorce" alt="your image" /> -->
+    <input #file type="file" accept='image/*' (change)="preview(file.files)" (mouseup)="hideAlertPicture()" >
+    <img [src]="imgURL" height="200" *ngIf="imgURL"/>
 
-      <label for="z"><b>Z Location</b></label>
-      <input required type="text" placeholder="Enter Z Location" name="y" [(ngModel)]="z_Position"  >
+    <br><br>
+    <!-- <input required type="text" placeholder="Enter Mail" name="uname" [(ngModel)]="mail" (keyup)="hideAlertMail()"  > -->
+    <!-- <div *ngIf="alertPassword" class="alert">*Password must contain at least 10 characters</div> -->
+    <div class="alert" *ngIf="alertX">*please Enter X Location</div>
+    <label for="x"><b>X Location</b></label>
+    <input required type="text" placeholder="Enter X Location" name="x" [(ngModel)]="x_Position" (keyup)="hideAlertX()"  >
 
-      <label for="description"><b>Text</b></label>
-      <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
-      <button (click)="postClicked()" >Post</button>
-      
-      
-    </div>
+    <div class="alert" *ngIf="alertY">*please Enter Y Location</div>
+    <label for="y"><b>Y Location</b></label>
+    <input required type="text" placeholder="Enter Y Location" name="y" [(ngModel)]="y_Position" (keyup)="hideAlertY()"  >
+
+    <div class="alert" *ngIf="alertZ">*please Enter Z Location</div>
+    <label for="z"><b>Z Location</b></label>
+    <input required type="text" placeholder="Enter Z Location" name="y" [(ngModel)]="z_Position" (keyup)="hideAlertZ()" >
+
+    <label for="description"><b>Text</b></label>
+    <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
+    <button (click)="postClicked()" >Post</button>
+    <div *ngIf="Succeeded">Succeeded!</div>
+    
+    
+  </div>
 
 </div>

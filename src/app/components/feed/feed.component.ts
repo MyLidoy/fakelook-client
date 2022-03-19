@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class FeedComponent implements OnInit {
   allPosts:Ipost[]=[];
+  outOfTimeAlert=false;
 
   constructor(private PostService:PostService) { }
 
@@ -17,9 +18,26 @@ export class FeedComponent implements OnInit {
   }
   
   getPostsList(){
-    this.PostService.getAllPosts().subscribe((result) => {
-      this.allPosts=result;
-    })
+    var token=localStorage.getItem("token");
+  
+    if(token!=null)
+    {
+      
+      this.PostService.getAllPosts(token).subscribe(
+      (result) => {this.allPosts=result;},
+      (error)=>{
+        if(error.status==401)
+        {
+          this.outOfTimeAlert=true;
+        }});
+     
+
+    }
+    else{
+      this.outOfTimeAlert=true;
+
+    }
+    
   }
 
 }

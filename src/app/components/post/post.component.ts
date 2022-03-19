@@ -10,11 +10,24 @@ import { Ipost } from 'src/app/interfaces/IPost';
 })
 export class PostComponent implements OnInit {
   @Input() post! : Ipost;
+  allDetails:boolean;
 
-  constructor() { }
+  constructor() 
+  {
+    this.allDetails=false; 
+  }
 
   ngOnInit(): void {
+    
    
+  }
+  readMoreClicked()
+  {
+    if(this.allDetails==false)
+      this.allDetails=true;
+    else
+      this.allDetails=false;
+
   }
   
 

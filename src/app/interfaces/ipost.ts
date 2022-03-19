@@ -8,5 +8,6 @@ export interface Ipost {
     y_Position:Number;
     z_Position:Number;
     date:Date;
+     userId:Number;
     
 }

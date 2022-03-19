@@ -1,30 +1,28 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { IUser } from 'src/app/interfaces/IUser';
 import { UserService } from 'src/app/services/user.service';
 import { validateEmail,validatePassword } from 'src/app/utils/validations';
-
+import { Router ,NavigationExtras} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class ForgotPasswordComponent implements OnInit {
   mail!:string;
   password!:string;
   alertEmpty:boolean;
   alertMail:boolean;
   alertPassword:boolean;
-  
+  confirmpassword:string;
   userNotFound!:boolean;
   user!:IUser;
-  
+  alertConfirmPassword:boolean;
+  passwordChanged:boolean;
 
-
-
-  constructor(private userService:UserService) 
+  constructor(private userService:UserService,private router: Router) 
   { 
     this.alertEmpty=false;
     this.alertMail=false;
@@ -32,35 +30,35 @@ export class LoginComponent implements OnInit {
     this.userNotFound=false;
     this.mail="";
     this.password=""
+    this.confirmpassword=""
+    this.alertConfirmPassword=false;
+    this.passwordChanged=false;
+
   }
 
   ngOnInit(): void {
   }
-
   loginClicked()
   {
 
-    if(validateEmail(this.mail)&& this.allInputsNotEmpty() && validatePassword(this.password))
+    if(validateEmail(this.mail)&& this.allInputsNotEmpty() && validatePassword(this.password) && this.validateConfirmPassword())
     {
       this.alertEmpty=false;
       this.alertMail=false;
       this.alertPassword=false;
+      this.alertConfirmPassword=false;
       let user ={} as IUser;
       user.password=this.password;
       user.mail=this.mail;
-      this.userService.login(user).subscribe((result)=>{
+      this.userService.forgetPassword(user).subscribe((result)=>{
       
-        this.user=result.dbUser;
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('userId', this.user.id);
-        console.log(localStorage.getItem("userId"))
-        console.log(localStorage.getItem("token"))
+        this.passwordChanged=true;
+        this.router.navigate(['/', 'login-component']);
 
-      
       },(error) => 
       {
         
-        if(error.status==500)
+       if(error.status==500)
         {
           this.userNotFound=true;
         }
@@ -86,6 +84,10 @@ export class LoginComponent implements OnInit {
         {
           this.alertPassword=true;
         }
+        if(!this.validateConfirmPassword())
+        {
+          this.alertConfirmPassword=true;
+        }
 
       }
       
@@ -101,7 +103,7 @@ export class LoginComponent implements OnInit {
  
   allInputsNotEmpty()
   {
-    if(this.mail==""||this.password=="")
+    if(this.mail==""||this.password==""||this.confirmpassword=="")
       return false;
     else 
       return true;
@@ -119,6 +121,17 @@ export class LoginComponent implements OnInit {
     this.alertPassword=false;
     this.userNotFound=false;
 
+  }
+  hideAlertConfirmPassword(){
+    this.alertEmpty=false;
+    this.alertConfirmPassword=false;
+    
+  }
+  validateConfirmPassword(){
+    if(this.password==this.confirmpassword)
+      return true;
+    else
+      return false;
   }
 
 }

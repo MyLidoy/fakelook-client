@@ -3,13 +3,14 @@
     <!-- <span (click)="CloseClicked()" class="close" title="Close Modal">&times;</span> -->
     <img src="../../../assets/man.png" alt="man" class="avatar">
   </div>
+  
 
   <div class="container">
     <div *ngIf="alertEmpty" class="alert">*Please Fill All The Fields</div>
     <div *ngIf="alertMail" class="alert">*Please Enter Valid Mail</div>
     <label for="uname"><b>Mail</b></label>
     <input required type="text" placeholder="Enter Mail" name="uname" [(ngModel)]="mail" (keyup)="hideAlertMail()"  >
-    <div *ngIf="alertPassword" class="alert">*Password must contain at least 10 characters</div>
+    <div *ngIf="alertPassword" class="alert">*Password must contain at least 6 characters</div>
     <label for="psw"><b>Password</b></label>
     <input required type="password" placeholder="Enter Password" name="psw" [(ngModel)]="password" (keyup)="hideAlertPassword()"  >
       
@@ -22,6 +23,6 @@
 
   <div class="container" style="background-color:#f1f1f1">
     <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> -->
-    <span class="psw">Forgot <a href="#">password?</a></span>
+    <span class="psw">Forgot <a routerLink="../forgot-password.component">password?</a></span>
   </div>
 </form>
