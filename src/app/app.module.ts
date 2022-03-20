@@ -10,6 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { MapComponent } from './modules/map/components/map/map.component';
+import { AcMapComponent, AngularCesiumWidgetsModule, AcHtmlDescComponent, AcLayerComponent } from 'angular-cesium';
+import { AngularCesiumModule } from 'angular-cesium';
+import { PostsMenuComponent } from './modules/map/components/posts-menu/posts-menu.component';
+import { PostsFormComponent } from './modules/map/components/posts-form/posts-form.component';
+import { PostsDisplayComponent } from './modules/map/components/posts-display/posts-display.component';
+import { PostsDialogComponent } from './modules/map/components/posts-dialog/posts-dialog.component';
+import { PostService } from './services/post.service';
+
 
 @NgModule({
   declarations: [
@@ -18,16 +27,23 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     LoginComponent,
     SignUpComponent,
     FeedComponent,
-    AddPostComponent
+    AddPostComponent,
+    MapComponent,
+    PostsMenuComponent,
+    PostsFormComponent,
+    PostsDisplayComponent,
+    PostsDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularCesiumWidgetsModule,
+    AngularCesiumModule.forRoot()
   ],
-  providers: [],
+  providers: [PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

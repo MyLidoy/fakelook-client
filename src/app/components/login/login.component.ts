@@ -62,7 +62,8 @@ export class LoginComponent implements OnInit {
         
         if(error.status==500)
         {
-          this.userNotFound=true;
+          console.log(error);
+          
         }
 
 

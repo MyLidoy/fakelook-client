@@ -8,17 +8,14 @@ import { Ipost } from 'src/app/interfaces/IPost';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent{
   @Input() post! : Ipost;
-
-  constructor() { }
-
-  ngOnInit(): void {
-   
+  description: string = "";
+  imageSrc: string = "";
+  x_Position:number=0;
+  y_Position:number=0;
+  z_Position:number=0;
+  constructor() { 
+    
   }
-  
-
-  
-
-
 }
