@@ -34,6 +34,7 @@
     <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
     <button (click)="postClicked()" >Post</button>
     <div *ngIf="Succeeded">Succeeded!</div>
+    <div class="outOfTimeAlertClass" *ngIf="outOfTimeAlert">We see you are not here , please Loggin again.. </div>
     
     
   </div>

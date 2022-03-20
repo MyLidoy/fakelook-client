@@ -11,6 +11,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SignOutComponent } from './components/sign-out/sign-out.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     SignUpComponent,
     FeedComponent,
     AddPostComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    SignOutComponent
   ],
   imports: [
     BrowserModule,

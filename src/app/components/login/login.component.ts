@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from 'src/app/interfaces/IUser';
 import { UserService } from 'src/app/services/user.service';
 import { validateEmail,validatePassword } from 'src/app/utils/validations';
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private userService:UserService) 
+  constructor(private userService:UserService,private router: Router) 
   { 
     this.alertEmpty=false;
     this.alertMail=false;
@@ -119,6 +120,10 @@ export class LoginComponent implements OnInit {
     this.alertPassword=false;
     this.userNotFound=false;
 
+  }
+  signUpClicked()
+  {
+    this.router.navigate(['/', 'sign-up.component']);
   }
 
 }

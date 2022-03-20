@@ -24,6 +24,7 @@ export class AddPostComponent implements OnInit {
   alertX:boolean;
   alertY:boolean;
   alertZ:boolean;
+  outOfTimeAlert:boolean;
 
   
 
@@ -38,6 +39,7 @@ export class AddPostComponent implements OnInit {
     this.alertX=false;
     this.alertY=false;
     this.alertZ=false;
+    this.outOfTimeAlert=false;
 
   }
 
@@ -67,7 +69,12 @@ export class AddPostComponent implements OnInit {
         this.postService.publishPost(post,token).subscribe((result)=>{
           this.Succeeded=true;
 
-        },(error)=>console.log(error));
+        },(error)=>{
+        if(error.status==401)
+        {
+          console.log(error.status);
+          this.outOfTimeAlert=true;
+        }});
 
       }
       else{

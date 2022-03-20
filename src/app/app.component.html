@@ -3,12 +3,17 @@
 <!-- <app-post></app-post> -->
 <!-- <app-feed></app-feed> -->
 <nav>
-  
-    <button routerLink="/sign-up.component" routerLinkActive="active" type="button">Sign Up</button>
-    <button routerLink="/login-component" routerLinkActive="active">Loggin</button>
+  <div>
+    <img src="../assets/logo.png" alt="logo">Fakelook
+  </div>
+    
+    <!-- <button routerLink="/sign-up.component" routerLinkActive="active" type="button">Sign Up</button> -->
+    <button routerLink="/" routerLinkActive="active">Loggin</button>
     <button routerLink="/feed-component" routerLinkActive="active">Feed</button>
     <button routerLink="/add-post-component" routerLinkActive="active">Add Post</button>
-    <button routerLink="/forgot-password.component" routerLinkActive="active">Forgot Password</button>
+    <!-- <button routerLink="/sign-out.component" routerLinkActive="active">SignOut</button> -->
+    <button (click)="signOutClicked()">SignOut</button>
+    <!-- <button routerLink="/forgot-password.component" routerLinkActive="active">Forgot Password</button> -->
     
   </nav>
   <!-- The routed views render in the <router-outlet>-->

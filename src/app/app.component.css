@@ -1,0 +1,25 @@
+button{
+    display: inline-block;
+    border-radius: 2px;
+    background: linear-gradient(#9aaab6,#ffff); 
+    border: none;
+    color: black;
+    text-align: center;
+    font-size: 15px;
+    padding: 20px;
+    width: 120px; 
+     transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+nav{
+    /* background: linear-gradient(#04AA6D); */
+    /* background: linear-gradient(#04AA6D,white);  */
+    background-color:#04AA6D;
+    display: flex;
+    justify-content: space-around;
+    
+}
+img{
+    width: 80px;
+}
