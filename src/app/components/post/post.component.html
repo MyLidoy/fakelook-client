@@ -1,7 +1,40 @@
-<div>
-    <img alt="picture" [src]="post.imageSorce" >
-</div>
-<br>
-<div>{{post.description}}</div>   
 
+<div class="border">
+    <div class="flex-container-center">
+        <div>Publisher: {{post.userId}}</div>
+        <img alt="picture" [src]="post.imageSorce" >
+        <div>{{post.description}}</div>
+    </div>
+    <br>
+    <br>
+    <div class="flex-container">
+        <div> {{counterLikes}}</div>
+        <img [src]="srcLike" alt="like" (click)="likeClicked()"> 
+
+        <img alt="picture" src="../../../assets/comment.png" (click)="CommentClicked()" >
+        <button class="readMoreButton" (click)="readMoreClicked()">Read more</button>
+       
+    </div>
+    <div *ngIf="inputContent">
+        <input required type="text" placeholder="Enter Comment"  [(ngModel)]="content"  >
+        <button (click)="publishCommentClicked()">Publish Comment</button>
+        
+
+    </div>
+     
+    <br>
+    <br>
+    <div *ngIf="allDetails">
+        <div>X : {{post.x_Position}}</div>
+        <div>Y : {{post.y_Position}}</div>
+        <div>Z : {{post.z_Position}}</div>
+        
+        <div>Date: {{ post.date | date:'medium' }} </div>
+        
+    </div>
+    
+</div>
+
+
+ 
 

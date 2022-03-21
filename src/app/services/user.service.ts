@@ -20,5 +20,8 @@ export class UserService {
   signUp(user:IUser):Observable<IHttpResponse>{
     return this.http.post<IHttpResponse>(environment.signUpUrl,user);
   }
+  forgetPassword(user:IUser):Observable<IHttpResponse>{
+    return this.http.post<IHttpResponse>(environment.forgotPasswordtUrl,user);
+  }
   
 }

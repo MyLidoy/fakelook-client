@@ -9,6 +9,12 @@ export const environment = {
   signUpUrl:"https://localhost:44349/api/Auth/SignUp",
   publishPostUrl:"https://localhost:44349/api/Posts/publish",
   forgotPasswordtUrl:"https://localhost:44349/api/Auth/ForgotPassword",
+  addlikeUrl:"https://localhost:44349/api/Likes/add",
+  revokeLikeUrl:"https://localhost:44349/api/Likes/Revoke",
+  countLikesUrl:"https://localhost:44349/api/Likes/CountLikes",
+  getAllLikseByPostUrl:"https://localhost:44349/api/Likes",
+  addCommentUrl:"https://localhost:44349/add",
+  deleteCommentUrl:"https://localhost:44349/Delete"
 };
 
 /*

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from 'src/app/interfaces/IUser';
 import { UserService } from 'src/app/services/user.service';
 import { validateEmail,validateFullName,validatePassword } from 'src/app/utils/validations';
@@ -24,7 +25,7 @@ export class SignUpComponent implements OnInit {
   user!:IUser;
 
 
-  constructor(private userService:UserService) 
+  constructor(private userService:UserService,private router:Router) 
   { 
     this.mail=="";
     this.password=="";
@@ -67,7 +68,7 @@ export class SignUpComponent implements OnInit {
         localStorage.setItem('userId', this.user.id);
         console.log(localStorage.getItem("userId"))
         console.log(localStorage.getItem("token"))
-        
+        this.router.navigate(['/', 'map-component']);
 
       },(error)=>{
         this.mailExistInDB=true;

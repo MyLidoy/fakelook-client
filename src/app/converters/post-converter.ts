@@ -6,8 +6,8 @@ export class PostConverter{
         {
             id: post.id.toString(),
             description: post.description,
-            imageSrc: post.imageSorce,
-            location: { x: post.x_Position, y: post.y_Position, z: post.z_Position },
+            imageSrc: post.imageSorce, 
+            location: Cesium.Cartesian3.fromDegrees(post.x_Position,  post.y_Position),
             isShow: true
         };
 

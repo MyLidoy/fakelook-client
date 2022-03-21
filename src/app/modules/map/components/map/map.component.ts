@@ -36,12 +36,12 @@ export class MapComponent implements OnInit {
       useDefaultRenderLoop: true,
     };
   }
-  entities$!: Observable<any>;
+  entities$!: Observable<AcNotification>;//any
   selectedPost!: PostComponent;
   showDialog = false;
   Cesium = Cesium;
   ngOnInit(): void {
-    this.entities$ = this.postService.getPostsWithDeleted().pipe(
+    this.entities$ = this.postService.getAllPosts(localStorage.getItem("token")!).pipe(
       map((posts:any[]) => {
         return posts.map((post) => ({
           id: post.id,
@@ -49,7 +49,7 @@ export class MapComponent implements OnInit {
           entity: PostConverter.convertIpostToCesiumEntity(post),
         }));
       }),
-      mergeMap((entity:any) => entity)
+      mergeMap((entity) => entity) //any
     );
   }
   showFullPost(post: PostComponent): void {

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { PostService } from './services/post.service';
 
@@ -9,12 +10,16 @@ import { PostService } from './services/post.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  constructor(private PostService:PostService) {}
+  constructor(private router: Router) {}
   
   ngOnInit():void{
-    this.PostService.getAllPosts().subscribe((result) => {
-      console.log(result)
-    })
+   
+  }
+  signOutClicked(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    this.router.navigate(['/']);
+
   }
   
   title = 'fakelook-client';

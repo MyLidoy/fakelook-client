@@ -1,5 +1,5 @@
 <div class="menu">
-    <div class="display-center">
+    <!-- <div class="display-center">
       <h1>Posts Menu</h1>
     </div>
     <app-posts-form (submitEmitter)="onNewPost($event)"></app-posts-form>
@@ -9,6 +9,13 @@
     <app-posts-display
       [posts$]="posts$" after app-posts-display
       (postDeleteEventEmitter)="onPostDelete($event)"
-    ></app-posts-display>
+    ></app-posts-display> -->
+
+<div class="flex-container">
+  <div (click)="postImgClicked()"><img src="../../../../../assets/post.png" alt="newPostImg"   ></div>
+  <div (click)="friendsImgClicked()"><img src="../../../../../assets/friends.png" alt="newPostImg" ></div>
+</div>
+  
+      
   </div>
   

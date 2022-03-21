@@ -14,11 +14,13 @@ import { MapComponent } from './modules/map/components/map/map.component';
 import { AcMapComponent, AngularCesiumWidgetsModule, AcHtmlDescComponent, AcLayerComponent } from 'angular-cesium';
 import { AngularCesiumModule } from 'angular-cesium';
 import { PostsMenuComponent } from './modules/map/components/posts-menu/posts-menu.component';
-import { PostsFormComponent } from './modules/map/components/posts-form/posts-form.component';
+// import { PostsFormComponent } from './modules/map/components/posts-form/posts-form.component';
 import { PostsDisplayComponent } from './modules/map/components/posts-display/posts-display.component';
 import { PostsDialogComponent } from './modules/map/components/posts-dialog/posts-dialog.component';
 import { PostService } from './services/post.service';
 
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SignOutComponent } from './components/sign-out/sign-out.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { PostService } from './services/post.service';
     AddPostComponent,
     MapComponent,
     PostsMenuComponent,
-    PostsFormComponent,
+    // PostsFormComponent,
     PostsDisplayComponent,
     PostsDialogComponent,
+    ForgotPasswordComponent,
+    SignOutComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required [(ngModel)]="mail" (keyup)="hideAlertMail()">
 
-        <div *ngIf="alertPassword" class="alert">*Password must contain at least 10 characters</div>
+        <div *ngIf="alertPassword" class="alert">*Password must contain at least 6 characters</div>
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="password" (keyup)="hideAlertPassword()">
 
