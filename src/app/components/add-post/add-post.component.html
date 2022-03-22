@@ -12,6 +12,37 @@
       <label for="description"><b>Text</b></label>
       <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
       
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tag Users</mat-label>
+        <mat-chip-list #chipList aria-label="Name selection">
+          <mat-chip
+            *ngFor="let name of names"
+            (removed)="remove(name)">
+            {{name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Enter user..."
+            #fruitInput
+            [formControl]="nameCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let user of allUsers"(click)="userClick(user)" >
+            {{user.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+<!-- 
+      <select name="cars" id="cars">
+        <option *ngFor="let user of allUsers">{{user.name}}</option>
+      </select>
+       -->
       <button mat-raised-button color="primary" (click)="postClicked()">Post</button>
       <div *ngIf="Succeeded">Succeeded!</div>
        

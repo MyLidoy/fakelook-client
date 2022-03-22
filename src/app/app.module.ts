@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostComponent } from './components/post/post.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
@@ -27,6 +27,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,9 @@ import {MatListModule} from '@angular/material/list';
     SignOutComponent
   ],
   imports: [
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatChipsModule,
     MatListModule,
     MatDividerModule,
     MatInputModule,

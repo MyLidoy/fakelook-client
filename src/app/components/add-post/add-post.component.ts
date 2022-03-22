@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Ipost } from '../../interfaces/IPost';
-
-
-
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { MatChipInputEvent } from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import { UserService } from 'src/app/services/user.service';
 import { PostService } from 'src/app/services/post.service';
 import { validateFile } from 'src/app/utils/validations';
 import { PostComponent } from '../post/post.component';
+import { IUser } from 'src/app/interfaces/IUser';
+import { IUserTagPost } from 'src/app/interfaces/IUserTagPost';
 
 @Component({
   selector: 'app-add-post',
@@ -29,10 +34,20 @@ export class AddPostComponent implements OnInit {
   alertZ:boolean;
   outOfTimeAlert:boolean;
   allBodyComponent:boolean;
+  userTags:IUserTagPost[] = [];
+
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  nameCtrl = new FormControl();
+  filteredNames: Observable<string[]>;
+  names: string[] = [];
+  allUsersName: string[] = [];
+  allUsers: IUser[]=[];
+
+  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>; 
 
   
 
-  constructor(private postService:PostService) 
+  constructor(private postService:PostService,private userService:UserService) 
   {
     this.allBodyComponent=true;
     this.expieredToken=false;
@@ -42,17 +57,42 @@ export class AddPostComponent implements OnInit {
     this.alertY=false;
     this.alertZ=false;
     this.outOfTimeAlert=false;
-
+    this.filteredNames = this.nameCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allUsersName.slice())),
+    );
+    
   }
 
   ngOnInit(): void {
+    this.getAllUsers();
     
-    
-    
-
   }
-  postClicked()
+  getAllUsers()
+  {
+    let token=localStorage.getItem("token");
+    if(token!=null)
+       {
+         this.userService.getAllUsers(token).subscribe((result)=>
+         {
+           
+           this.allUsers=result;
+           this.allUsers.forEach(element=>
+            {
+              this.allUsersName.push(element.name);
+            })
+            
 
+         },(error)=>
+         {
+           console.log(error);
+
+         });
+       }
+  }
+
+
+  postClicked()
   {
     if(this.imageNotEmpty())
     {
@@ -155,6 +195,50 @@ export class AddPostComponent implements OnInit {
   }
   hideAlertPicture(){
     this.alertPicture=false;
+  }
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+
+    // Add our fruit
+    if (value) {
+      this.names.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.nameCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.names.indexOf(fruit);
+
+    if (index >= 0) {
+      this.names.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.names.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.nameCtrl.setValue(null);
+  }
+  userClick(user:IUser){
+  //   let exist = this.userTags.forEach(oUser=> Number(user.id)==oUser.userId);
+  //   if(!exist){
+  //   let newPost={
+  //     userId:Number(user.id),
+  //     postId:0
+  //   }
+  //   this.userTags.push(newPost);
+  // }
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allUsersName.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 
    

@@ -1,12 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Ipost } from 'src/app/interfaces/IPost';
+import { IUser } from 'src/app/interfaces/IUser';
 import { LikeService } from 'src/app/services/like.service';
 import { Output, EventEmitter } from '@angular/core';
 import { ILike } from 'src/app/interfaces/ILike';
 import { CommentService } from 'src/app/services/comment.service';
 import { IComment } from 'src/app/interfaces/IComment';
-// import { userInfo } from 'os';
-// import { resourceLimits } from 'worker_threads';
+//import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { MatChipInputEvent } from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import { UserService } from 'src/app/services/user.service';
+
+// import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+
+
+
 
 @Component({
   selector: 'app-post',
@@ -26,15 +38,27 @@ export class PostComponent{
   allDetails:boolean;
   content!:string;
   inputContent:boolean;
-  // commentArray:IComment[] =[]
+  userTags:boolean;
   contentstArray:string[] =[]
- 
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  nameCtrl = new FormControl();
+  filteredNames: Observable<string[]>;
+  names: string[] = [];
+  allUsersName: string[] = [];
+  allUsers: IUser[]=[];
 
-   constructor(private likeService :LikeService,private commentService:CommentService) 
+  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;  
+
+   constructor(private likeService :LikeService,private commentService:CommentService,private userService:UserService) 
 
   {
      this.inputContent=false;
       this.allDetails=false; 
+      this.userTags=false;
+      this.filteredNames = this.nameCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allUsersName.slice())),
+      );
   }
 
   ngOnInit(): void {
@@ -43,6 +67,37 @@ export class PostComponent{
     
     
    
+  }
+  userTagsClicked(){
+    if(this.userTags==false)
+    {
+      let token=localStorage.getItem("token");
+       if(token!=null)
+       {
+         this.userService.getAllUsers(token).subscribe((result)=>
+         {
+           this.userTags=true;
+           this.allUsers=result;
+           this.allUsers.forEach(element=>
+            {
+              this.allUsersName.push(element.name);
+            })
+
+         },(error)=>
+         {
+           console.log(error);
+
+         });
+       }
+       
+    }
+    else
+    {
+      this.userTags=false;
+
+    }
+   
+
   }
   publishCommentClicked(){
 
@@ -153,6 +208,7 @@ export class PostComponent{
           },
           (error)=>
           {
+            console.log(error);
 
           });
 
@@ -219,10 +275,42 @@ export class PostComponent{
 
     }
     
-
-    
-      
    
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.names.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.nameCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.names.indexOf(fruit);
+
+    if (index >= 0) {
+      this.names.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    ;
+    this.names.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.nameCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allUsersName.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
   
 

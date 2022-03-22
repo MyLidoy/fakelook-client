@@ -1,12 +1,18 @@
+import { ITagPost } from "./ITagPost";
+import { IUserTagPost } from "./IUserTagPost";
+
+
 export interface Ipost {
-    id:number; ///N
+    id:number; 
     description:string;
     imageSorce:string;
     x_Position:number;
     y_Position:number;
     z_Position:number;
     date:Date;
-    userId:number;//N
+    userId:number;
+    IUserTagPost:IUserTagPost[];
+    ITagPost:ITagPost[];
 }
 
 export interface CesiumEntity{

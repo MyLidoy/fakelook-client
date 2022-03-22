@@ -122,3 +122,6 @@ input[type=text], input[type=password] {
   .alert{
     color: red;
   }
+  .example-chip-list {
+    width: 100%;
+  }

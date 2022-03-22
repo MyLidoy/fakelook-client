@@ -15,7 +15,8 @@ export const environment = {
   getAllLikseByPostUrl:"https://localhost:44349/api/Likes",
   addCommentUrl:"https://localhost:44349/add",
   deleteCommentUrl:"https://localhost:44349/Delete",
-  getAllCommentsByPostId:"https://localhost:44349/GetComment"
+  getAllCommentsByPostId:"https://localhost:44349/GetComment",
+  getAllUsersURL:"https://localhost:44349/api/Auth/GetAllUsers"
 };
 
 /*

@@ -1,5 +1,5 @@
 <div class="flex-container">
-    <app-posts-menu></app-posts-menu>
+    <!-- <app-posts-menu></app-posts-menu> -->
     <app-post *ngFor="let item of allPosts" [post]="item" (newItemEvent)="likeTimeOut($event)"> </app-post>
     
 </div>

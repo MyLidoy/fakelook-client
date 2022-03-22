@@ -11,12 +11,43 @@
         <img [src]="srcLike" alt="like" (click)="likeClicked()">
         
         <button mat-button (click)="CommentClicked()">Comment</button>
+        <button mat-button (click)="userTagsClicked()">Tags</button>
         <button mat-button (click)="readMoreClicked()">Read more</button>
     </mat-card-actions>
+
+    <div *ngIf="userTags">
+         <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tag Users</mat-label>
+        <mat-chip-list #chipList aria-label="Name selection">
+          <mat-chip
+            *ngFor="let name of names"
+            (removed)="remove(name)">
+            {{name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Enter user..."
+            #fruitInput
+            [formControl]="nameCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let name of filteredNames | async" [value]="name">
+            {{name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      
+        
+    </div>
      
     <div *ngIf="inputContent">
-        <!-- <input required type="text" placeholder="Enter Comment"  [(ngModel)]="content"  > -->
-        <!-- <button (click)="publishCommentClicked()">Publish Comment</button> -->
+        
         
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Write Comment</mat-label>
@@ -26,7 +57,7 @@
 
     </div>
     <div *ngIf="allDetails">
-        <!-- <div *ngFor="let item of contentstArray">{{item}}</div> -->
+        
         <mat-list *ngFor="let item of contentstArray">
             <mat-list-item >{{item}}</mat-list-item>
             <mat-divider ></mat-divider>  
@@ -34,8 +65,12 @@
         <div>X : {{post.x_Position}}</div>
         <div>Y : {{post.y_Position}}</div>
         <div>Z : {{post.z_Position}}</div>
-        
         <div>Date: {{ post.date | date:'medium' }} </div>
+        <div>User Tags:</div>
+        <mat-list *ngFor="let name of names">
+          <mat-list-item >{{name}}</mat-list-item>
+          <mat-divider ></mat-divider>  
+      </mat-list>
         
     </div>
   </mat-card>
