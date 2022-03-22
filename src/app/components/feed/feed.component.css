@@ -6,9 +6,18 @@
 .flex-container
 {
     display: flex;
+    gap:80px;
     justify-content: space-between;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    
+
+}
+:host{
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+app-post{
+    margin: 20px;
 }

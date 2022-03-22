@@ -11,25 +11,29 @@
      transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
-} */
-/* nav{
+}  */
+ /* nav{
     background: linear-gradient(#04AA6D);
     background: linear-gradient(#04AA6D,white);  
      background-color:#04AA6D;
      display: flex;
     justify-content: space-around;
     
-}
-img{
+} */
+/* img{
     width: 80px;
-}  */
+} 
 
-  /* .example-spacer {
+   .example-spacer {
     flex: 1 1 auto;
-  } */
+  }  */
 
-  .flex-container{
+   .flex-container{
       display: flex;
       justify-content: space-between;
+  } 
+  .route-container{
+    flex: 1;
+    min-height: 0;
   }
  

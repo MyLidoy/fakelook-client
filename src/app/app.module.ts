@@ -29,6 +29,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     PostsDisplayComponent,
     PostsDialogComponent,
     ForgotPasswordComponent,
-    SignOutComponent
+    SignOutComponent,
+    HomeComponent
   ],
   imports: [
     MatAutocompleteModule,

@@ -1,6 +1,7 @@
 <mat-toolbar class="flex-container">
   <span>Fakelook</span>
   <span >
+    <button mat-stroked-button color="primary" routerLink="/home-component" routerLinkActive="active" >Home</button>
     <button mat-stroked-button color="primary" routerLink="/feed-component" routerLinkActive="active" >Feed</button>
     <button mat-stroked-button color="primary" routerLink="/map-component" routerLinkActive="active" >Map</button>
     <button mat-stroked-button color="primary" routerLink="/" routerLinkActive="active">Loggin</button>
@@ -24,4 +25,6 @@
     
   </nav>  -->
    <!-- The routed views render in the <router-outlet> -->
-  <router-outlet></router-outlet>
+  <div class="route-container">
+      <router-outlet></router-outlet>
+  </div>
