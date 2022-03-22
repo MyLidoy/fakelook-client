@@ -1,2 +1,7 @@
-<app-post *ngFor="let item of allPosts" [post]="item" (newItemEvent)="likeTimeOut($event)"> </app-post>
+<div class="flex-container">
+    <app-posts-menu></app-posts-menu>
+    <app-post *ngFor="let item of allPosts" [post]="item" (newItemEvent)="likeTimeOut($event)"> </app-post>
+    
+</div>
+
 <div class="outOfTimeAlertClass" *ngIf="outOfTimeAlert">We see you are not here , please Loggin again.. </div>

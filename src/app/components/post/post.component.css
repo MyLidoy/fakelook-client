@@ -1,4 +1,4 @@
-img{
+/* img{
     width: 20%;
     height: 20%;
 }
@@ -13,16 +13,40 @@ img{
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    text-align: center;
+    /* text-align: center; */
 
-}
+/* }
 .flex-container{
     display: flex;
     
     justify-content: space-around;
-}
+}  */
 /* .flex-container-center{
     display: flex;
     flex-direction: column;
     justify-content: center;
 } */
+
+.example-card {
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  .mat-card-actions img{
+    width: 20%;
+    height: 20%;
+}
+.example-card:hover {
+    
+    background: linear-gradient(#ffffff,#DBDBDB); 
+  }
+
+#imgPost{
+    width: 40%;
+    height: 40%;
+
+}

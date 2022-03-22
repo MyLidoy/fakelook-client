@@ -25,5 +25,10 @@ export class CommentService {
     };
     return this.http.delete<IComment>(environment.deleteCommentUrl+'?id='+commentId,httpOptions);
   }
-
+  getAllCommentseByPostUrl(postId:number,token:string):Observable<IComment[]>{
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json','Authorization': `Bearer ${token}`}),
+    };
+    return this.http.get<IComment[]>(environment.getAllCommentsByPostId+'?id='+postId, httpOptions);
+  }
 }

@@ -26,6 +26,8 @@ export class PostComponent{
   allDetails:boolean;
   content!:string;
   inputContent:boolean;
+  // commentArray:IComment[] =[]
+  contentstArray:string[] =[]
  
 
    constructor(private likeService :LikeService,private commentService:CommentService) 
@@ -48,16 +50,21 @@ export class PostComponent{
     if(token!=null){
       
       let comment={} as IComment;
-      comment.postId==this.post.id;
+      comment.postId=this.post.id;
       comment.content=this.content;
+      console.log(comment);
       this.commentService.addComment(comment,token).subscribe((result)=>
       {
+        console.log(result);
 
       },
       (error)=>
       {
         console.log(error);
       });
+    }
+    else{
+
     }
     
 
@@ -98,7 +105,7 @@ export class PostComponent{
       });
       this.likeService.getCounterLikes(this.post.id,token).subscribe((result)=>
       {
-        console.log(result)
+        
         this.counterLikes=result;
 
 
@@ -127,7 +134,34 @@ export class PostComponent{
   readMoreClicked()
   {
     if(this.allDetails==false)
-      this.allDetails=true;
+    {
+      var token=localStorage.getItem("token");
+      if(token!=null)
+      {
+        
+        this.commentService.getAllCommentseByPostUrl(this.post.id,token).subscribe(
+          (result)=>
+          {
+             this.contentstArray=[];
+            result.forEach(element => {
+              this.contentstArray.push(element.content);
+              
+            });
+            console.log(result);
+            this.allDetails=true;
+
+          },
+          (error)=>
+          {
+
+          });
+
+      }
+       
+
+
+    }
+     
     else
       this.allDetails=false;
 
@@ -147,7 +181,7 @@ export class PostComponent{
         {
           this.counterLikes++;
           this.srcLike="assets/likeblue.PNG"
-          console.log(result);
+          
         },(error)=>
         {
           console.log(error);

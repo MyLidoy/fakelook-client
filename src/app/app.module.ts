@@ -18,10 +18,15 @@ import { PostsMenuComponent } from './modules/map/components/posts-menu/posts-me
 import { PostsDisplayComponent } from './modules/map/components/posts-display/posts-display.component';
 import { PostsDialogComponent } from './modules/map/components/posts-dialog/posts-dialog.component';
 import { PostService } from './services/post.service';
-
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SignOutComponent } from './components/sign-out/sign-out.component';
-
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +44,13 @@ import { SignOutComponent } from './components/sign-out/sign-out.component';
     SignOutComponent
   ],
   imports: [
+    MatListModule,
+    MatDividerModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

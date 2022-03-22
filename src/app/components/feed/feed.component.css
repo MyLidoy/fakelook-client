@@ -3,3 +3,12 @@
     font-size: 150%;
     text-align: center;
 }
+.flex-container
+{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    
+}
