@@ -30,6 +30,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HomeComponent } from './components/home/home.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,6 @@ import { HomeComponent } from './components/home/home.component';
     AddPostComponent,
     MapComponent,
     PostsMenuComponent,
-    // PostsFormComponent,
     PostsDisplayComponent,
     PostsDialogComponent,
     ForgotPasswordComponent,
@@ -60,6 +60,7 @@ import { HomeComponent } from './components/home/home.component';
     MatIconModule,
     MatButtonModule,
     BrowserModule,
+    MatDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,

@@ -12,7 +12,7 @@
       <label for="description"><b>Text</b></label>
       <input required type="text" placeholder="Text" name="text" [(ngModel)]="description"  >
       
-      <mat-form-field class="example-chip-list" appearance="fill">
+      <!-- <mat-form-field class="example-chip-list" appearance="fill">
         <mat-label>Tag Users</mat-label>
         <mat-chip-list #chipList aria-label="Name selection">
           <mat-chip
@@ -37,12 +37,10 @@
             {{user.name}}
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
-<!-- 
-      <select name="cars" id="cars">
-        <option *ngFor="let user of allUsers">{{user.name}}</option>
-      </select>
-       -->
+      </mat-form-field> -->
+
+      <label for="tags"><b>Tags</b></label>
+      <input required type="text" placeholder="Enter Tags #example" name="text" [(ngModel)]="tags"  >
       <button mat-raised-button color="primary" (click)="postClicked()">Post</button>
       <div *ngIf="Succeeded">Succeeded!</div>
        
@@ -52,4 +50,4 @@
 
 </div>
 
-<div class="outOfTimeAlertClass" *ngIf="outOfTimeAlert">We see you are not here , please Loggin again.. </div>  
+<div class="outOfTimeAlertClass" *ngIf="outOfTimeAlert">We see you are not here , please Login again.. </div>  

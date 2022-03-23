@@ -11,6 +11,11 @@ import { validateFile } from 'src/app/utils/validations';
 import { PostComponent } from '../post/post.component';
 import { IUser } from 'src/app/interfaces/IUser';
 import { IUserTagPost } from 'src/app/interfaces/IUserTagPost';
+import { ITagPost } from 'src/app/interfaces/ITagPost';
+import { ITag } from 'src/app/interfaces/ITag';
+import { TagService } from 'src/app/services/tag.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-post',
@@ -35,7 +40,6 @@ export class AddPostComponent implements OnInit {
   outOfTimeAlert:boolean;
   allBodyComponent:boolean;
   userTags:IUserTagPost[] = [];
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
   nameCtrl = new FormControl();
   filteredNames: Observable<string[]>;
@@ -43,11 +47,13 @@ export class AddPostComponent implements OnInit {
   allUsersName: string[] = [];
   allUsers: IUser[]=[];
 
+  tags!:string;
+
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>; 
 
   
 
-  constructor(private postService:PostService,private userService:UserService) 
+  constructor(private postService:PostService,private userService:UserService,private tagService:TagService,private router:Router) 
   {
     this.allBodyComponent=true;
     this.expieredToken=false;
@@ -86,6 +92,10 @@ export class AddPostComponent implements OnInit {
          },(error)=>
          {
            console.log(error);
+           if(error.status==401)
+            {
+              this.router.navigate(['/']);
+            }
 
          });
        }
@@ -94,25 +104,38 @@ export class AddPostComponent implements OnInit {
 
   postClicked()
   {
+    
     if(this.imageNotEmpty())
     {
       var token=localStorage.getItem("token");
       if(token!=null)
       {
           let post ={} as Ipost;
-        
           navigator.geolocation.getCurrentPosition((data) => {
           post.x_Position = data.coords.longitude;
           post.y_Position = data.coords.latitude;
-          post.z_Position =0;
+          post.z_Position =32.0852999;
           post.imageSorce=this.imgURL;
+          post.tags = [] as ITag[];
+          let tagsArray=this.tags.split("#");
+          let index = tagsArray.indexOf("");
+          if (index > -1) {
+            tagsArray.splice(index, 1); }
+          
+          tagsArray.forEach(element=>{
+            let tag={} as ITag;
+            tag.content=element;
+            var token=localStorage.getItem("token");
+            post.tags.push(tag)            
+          })
           var userToken="";
           userToken=localStorage.getItem("token") || '';
           post.description=this.description;
           post.date=new Date(Date.now())
-          console.log(post);
+          
           this.postService.publishPost(post,userToken).subscribe((result)=>{
           this.Succeeded=true;
+           
 
           },(error)=>{
             console.log(error);
@@ -121,6 +144,7 @@ export class AddPostComponent implements OnInit {
               this.outOfTimeAlert=true;
               this.allBodyComponent=false;
             }});
+            
         });
 
       }
@@ -138,18 +162,6 @@ export class AddPostComponent implements OnInit {
 
       }
         
-      // if(this.x_Position==undefined)
-      // {
-      //   this.alertX=true;
-      // }
-      // if(this.y_Position==undefined)
-      // {
-      //   this.alertY=true;
-      // }
-      // if(this.z_Position==undefined)
-      // {
-      //   this.alertZ=true;
-      // }
        
     }
 
@@ -225,14 +237,14 @@ export class AddPostComponent implements OnInit {
     this.nameCtrl.setValue(null);
   }
   userClick(user:IUser){
-  //   let exist = this.userTags.forEach(oUser=> Number(user.id)==oUser.userId);
-  //   if(!exist){
-  //   let newPost={
-  //     userId:Number(user.id),
-  //     postId:0
-  //   }
-  //   this.userTags.push(newPost);
-  // }
+    let exist = this.userTags.find(oUser=> Number(user.id)==oUser.userId);
+    if(exist==undefined){
+    let newPost={
+      userId:Number(user.id),
+      postId:0
+    }
+    this.userTags.push(newPost);
+    }
   }
 
   private _filter(value: string): string[] {

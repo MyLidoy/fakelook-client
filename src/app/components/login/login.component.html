@@ -9,7 +9,7 @@
     <input required type="text" placeholder="Enter Mail" name="uname" [(ngModel)]="mail" (keyup)="hideAlertMail()"  >
     <div *ngIf="alertPassword" class="alert">*Password must contain at least 6 characters</div>
     <label for="psw"><b>Password</b></label>
-    <input required type="password" placeholder="Enter Password" name="psw" [(ngModel)]="password" (keyup)="hideAlertPassword()"  >
+    <input required type="password" placeholder="Enter Password" name="psw" [(ngModel)]="password" (keyup)="hideAlertPassword()">
    
     <button mat-raised-button color="primary" (click)="loginClicked()">Login</button>
  

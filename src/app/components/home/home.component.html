@@ -1,10 +1,10 @@
 <div class="flex-container">
     <div class="inner-container">
-    <app-posts-menu></app-posts-menu>
+    <app-posts-menu (onSend)="filter($event)" (onCancel)="getPostsList()"></app-posts-menu>
     </div>
     <div class="other-container">
         <button class="button-29" role="button" (click)="changeView()"> Feed/Map</button>
-        <app-map *ngIf="map==true"></app-map>
-        <app-feed *ngIf="map==false"></app-feed>
+        <app-map *ngIf="map==true" [entities$] = "getEntites()" (onInitEmitter)="emitVal()"></app-map>
+        <app-feed [allPosts]="Posts" *ngIf="map==false" ></app-feed>
     </div>
 </div>

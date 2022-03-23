@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Query } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { PostComponent } from 'src/app/components/post/post.component';
-import { Ipost } from 'src/app/interfaces/IPost';
-import { PostService } from 'src/app/services/post.service';
+import { QueryRequest } from '../../../../interfaces/queryRequest';
 
 @Component({
   selector: 'app-posts-menu',
@@ -11,28 +8,47 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./posts-menu.component.css'],
 })
 export class PostsMenuComponent implements OnInit {
-  // token=localStorage.getItem("token");
-  // posts$!: Observable<Ipost[]>;
+  @Output() onSend = new EventEmitter<QueryRequest>();
+  @Output() onCancel = new EventEmitter<any>();
+  request: QueryRequest= new QueryRequest();
+  fromDate:Date = new Date();
+  untilDate:Date=new Date();
+  tags:string="";
 
-  constructor(private router :Router) {}
-  
-  
+
+  constructor(private router: Router) { }
+
 
   ngOnInit(): void {
-    // this.posts$ = this.postsService.getAllPosts(this.token as string );
+
   }
-  // onNewPost(form: Ipost): void {
-  //   this.postsService.publishPost(form,this.token!);
-  // }
-  // onPostDelete(id: string): void {
-  //   this.postsService.deletePost(id);
-  //}
 
 
-  postImgClicked(){
+
+  postImgClicked() {
     this.router.navigate(['/', 'add-post-component']);
   }
-  friendsImgClicked(){
+  friendsImgClicked() {
 
   }
+  Send() {
+    if(this.tags!="")
+    {
+      let tagsArray=this.tags.split("#");
+      let index = tagsArray.indexOf("");
+      if (index > -1) {
+          tagsArray.splice(index, 1);
+      }
+      this.request.tags=tagsArray;
+    }else{
+      this.request.tags=[];
+    }
+     this.request.fromDate=this.fromDate;
+     this.request.toDate=this.untilDate;
+     this.onSend.emit(this.request);
+  }
+  cancel(){
+     this.onCancel.emit();
+  }
+
 }

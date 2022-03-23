@@ -1,3 +1,6 @@
+import { IComment } from "./IComment";
+import { ILike } from "./ILike";
+import { ITag } from "./ITag";
 import { ITagPost } from "./ITagPost";
 import { IUserTagPost } from "./IUserTagPost";
 
@@ -12,7 +15,9 @@ export interface Ipost {
     date:Date;
     userId:number;
     IUserTagPost:IUserTagPost[];
-    ITagPost:ITagPost[];
+    tags:ITag[];
+    comments:IComment[];
+    likes:ILike[];
 }
 
 export interface CesiumEntity{

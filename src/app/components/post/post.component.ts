@@ -13,6 +13,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 // import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
@@ -46,10 +47,12 @@ export class PostComponent{
   names: string[] = [];
   allUsersName: string[] = [];
   allUsers: IUser[]=[];
+  allCommentOfPost: IComment[]=[];
+  allLikesOfPost:ILike[]=[];
 
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;  
 
-   constructor(private likeService :LikeService,private commentService:CommentService,private userService:UserService) 
+   constructor(private likeService :LikeService,private commentService:CommentService,private userService:UserService,private router:Router) 
 
   {
      this.inputContent=false;
@@ -63,6 +66,7 @@ export class PostComponent{
 
   ngOnInit(): void {
       this.displayCounterLikes();
+      
       
     
     
@@ -85,7 +89,11 @@ export class PostComponent{
 
          },(error)=>
          {
-           console.log(error);
+          if(error.status==401)
+            {
+              this.router.navigate(['/']);
+            }
+            
 
          });
        }
@@ -107,15 +115,18 @@ export class PostComponent{
       let comment={} as IComment;
       comment.postId=this.post.id;
       comment.content=this.content;
-      console.log(comment);
+      
       this.commentService.addComment(comment,token).subscribe((result)=>
       {
-        console.log(result);
+        
 
       },
       (error)=>
       {
-        console.log(error);
+        if(error.status==401)
+        {
+          this.router.navigate(['/']);
+        }
       });
     }
     else{
@@ -145,6 +156,7 @@ export class PostComponent{
       this.likeService.getAllLikseByPostUrl(this.post.id,token).subscribe
       ((result)=>
       {
+        this.post.likes=result;
         let allLikesOfPost:ILike[] =result;
         allLikesOfPost.forEach(element => {
           if(element.userId==Number(localStorage.getItem("userId")))
@@ -156,7 +168,10 @@ export class PostComponent{
 
       },(error)=>
       {
-          console.log(error);
+        if(error.status==401)
+        {
+          this.router.navigate(['/']);
+        }
       });
       this.likeService.getCounterLikes(this.post.id,token).subscribe((result)=>
       {
@@ -166,25 +181,21 @@ export class PostComponent{
 
       },(error)=>
       {
-        console.log(error);
+        if(error.status==401)
+        {
+          this.router.navigate(['/']);
+        }
 
       });
       
     }
     else//token null
     {
-      console.log("error");
+      
 
     }
 
   }
-
-
-
-
-
-
-
 
   readMoreClicked()
   {
@@ -197,18 +208,23 @@ export class PostComponent{
         this.commentService.getAllCommentseByPostUrl(this.post.id,token).subscribe(
           (result)=>
           {
-             this.contentstArray=[];
+            this.post.comments=result;
+            this.allCommentOfPost=result;
+            this.contentstArray=[];
             result.forEach(element => {
-              this.contentstArray.push(element.content);
+            this.contentstArray.push(element.content);
               
             });
-            console.log(result);
+            
             this.allDetails=true;
 
           },
           (error)=>
           {
-            console.log(error);
+            if(error.status==401)
+            {
+              this.router.navigate(['/']);
+            }
 
           });
 
@@ -243,9 +259,12 @@ export class PostComponent{
           console.log(error);
           if(error.status==401)
           {
-            console.log(error.status);
-            this.newItemEvent.emit("timeOut");
             
+            this.newItemEvent.emit("timeOut");
+            if(error.status==401)
+            {
+              this.router.navigate(['/']);
+            }
             //pass to feed that timeout
           }
         });
@@ -264,8 +283,10 @@ export class PostComponent{
 
         },(error)=>
         {
-          console.log(error);
-          console.log(error.status);
+          if(error.status==401)
+          {
+            this.router.navigate(['/']);
+          }
         });
       }
 

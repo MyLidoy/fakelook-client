@@ -1,4 +1,4 @@
 export interface ITagPost {
-    content:string;
+    tagId:number;
     postId:number;
 }

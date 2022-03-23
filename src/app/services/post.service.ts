@@ -4,6 +4,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Ipost } from '../interfaces/IPost';
 import { IUserTagPost } from '../interfaces/IUserTagPost';
+import { QueryRequest } from '../interfaces/queryRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,12 @@ export class PostService {
       headers: new HttpHeaders({'Content-Type': 'application/json','Authorization': `Bearer ${token}`}),
     };
     return this.http.get<Ipost[]>(environment.postsUrl, httpOptions);
+  }
+  getAllPostsByFilter(token: string,query:QueryRequest): Observable<Ipost[]> {
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json','Authorization': `Bearer ${token}`})
+    };
+    return this.http.post<Ipost[]>(environment.GetPostByFilter,query, httpOptions);
   }
 
   

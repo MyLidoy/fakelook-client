@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AcNotification,
   ViewerConfiguration,
@@ -17,7 +17,7 @@ import { PostConverter } from 'src/app/converters/post-converter';
   styleUrls: ['./map.component.css'],
   providers: [ViewerConfiguration],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit,AfterViewInit {
   constructor(
     private viewerConf: ViewerConfiguration,
     private postService: PostService
@@ -36,21 +36,15 @@ export class MapComponent implements OnInit {
       useDefaultRenderLoop: true,
     };
   }
-  entities$!: Observable<AcNotification>;//any
+  ngAfterViewInit(): void {
+    this.onInitEmitter.emit();
+  }
+  @Input() entities$!: Observable<AcNotification>;//any
+  @Output() onInitEmitter = new EventEmitter();
   selectedPost!: PostComponent;
   showDialog = false;
   Cesium = Cesium;
   ngOnInit(): void {
-    this.entities$ = this.postService.getAllPosts(localStorage.getItem("token")!).pipe(
-      map((posts:any[]) => {
-        return posts.map((post) => ({
-          id: post.id,
-          actionType: ActionType.ADD_UPDATE,
-          entity: PostConverter.convertIpostToCesiumEntity(post),
-        }));
-      }),
-      mergeMap((entity) => entity) //any
-    );
   }
   showFullPost(post: PostComponent): void {
     this.showDialog = true;
