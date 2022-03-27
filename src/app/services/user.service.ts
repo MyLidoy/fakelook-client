@@ -30,5 +30,13 @@ export class UserService {
     };
     return this.http.get<IUser[]>(environment.getAllUsersURL, httpOptions);
   }
+
+  GetUserById(id:number,token:string|null): Observable<IUser> {
+    
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json','Authorization': `Bearer ${token}`}),
+    };
+    return this.http.post<IUser>(environment.GetUserById+id,id, httpOptions);
+  }
   
 }

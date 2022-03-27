@@ -132,7 +132,7 @@ export class PostComponent{
     else{
 
     }
-    
+    this.content="";
 
   }
   CommentClicked(){

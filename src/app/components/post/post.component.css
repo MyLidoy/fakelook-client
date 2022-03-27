@@ -56,3 +56,12 @@
   .tag-comp{
     margin-bottom: 10px;
   }
+  .comment-flex{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+  }
+  .Comment-container{
+    color: rgb(46, 77, 104);
+    font-weight: bolder;
+  }

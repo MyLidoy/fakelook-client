@@ -91,7 +91,6 @@ export class HomeComponent implements OnInit {
   }
 
   emitVal(){
-    debugger;
     this.postSubject.next(this.postSubject.getValue())
   }
 }

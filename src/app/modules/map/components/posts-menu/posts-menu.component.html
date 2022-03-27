@@ -4,6 +4,7 @@
   <div (click)="postImgClicked()"><img src="../../../../../assets/post.png" alt="newPostImg"   ></div>
   <div (click)="friendsImgClicked()"><img src="../../../../../assets/friends.png" alt="newPostImg" ></div>
   </div>
+  <div class="form-flex">
   <label><b>From Date:  </b></label>
    <input type="date" placeholder="From Date"  required [(ngModel)]="fromDate">
    <br><br>
@@ -13,8 +14,11 @@
    <label for="tags"><b>Tags: </b></label>
       <input required type="text" placeholder="Enter Tags #example" name="text" [(ngModel)]="tags"  >
    <br><br><br><br><br><br>
-   <button mat-raised-button color="primary" (click)="Send()">Set</button>
+  </div>
+   <div class="button-flex">
+   <button mat-raised-button color="primary" (click)="Send()" >Set</button>
+
    <button mat-raised-button color="warn" (click)="cancel()">cancel</button>
-      
+  </div>  
   </div>
   

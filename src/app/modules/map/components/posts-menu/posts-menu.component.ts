@@ -11,8 +11,8 @@ export class PostsMenuComponent implements OnInit {
   @Output() onSend = new EventEmitter<QueryRequest>();
   @Output() onCancel = new EventEmitter<any>();
   request: QueryRequest= new QueryRequest();
-  fromDate:Date = new Date();
-  untilDate:Date=new Date();
+  fromDate:Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  untilDate:Date=new Date(new Date().setFullYear(1970));
   tags:string="";
 
 
@@ -48,7 +48,10 @@ export class PostsMenuComponent implements OnInit {
      this.onSend.emit(this.request);
   }
   cancel(){
-     this.onCancel.emit();
+    this.fromDate=new Date();
+    this.untilDate=new Date();
+    this.tags="";
+    this.onCancel.emit();
   }
 
 }

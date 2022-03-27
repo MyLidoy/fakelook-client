@@ -104,7 +104,7 @@ export class AddPostComponent implements OnInit {
 
   postClicked()
   {
-    
+    debugger;
     if(this.imageNotEmpty())
     {
       var token=localStorage.getItem("token");
@@ -164,7 +164,6 @@ export class AddPostComponent implements OnInit {
         
        
     }
-
   }
 
 

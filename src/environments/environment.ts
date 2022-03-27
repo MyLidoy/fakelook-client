@@ -18,7 +18,8 @@ export const environment = {
   getAllCommentsByPostId:"https://localhost:44349/GetComment",
   getAllUsersURL:"https://localhost:44349/api/Auth/GetAllUsers",
   addTagUrl:"https://localhost:44349/api/Tag/add",
-  GetPostByFilter: "https://localhost:44349/api/Posts/getByFilter"
+  GetPostByFilter: "https://localhost:44349/api/Posts/getByFilter",
+  GetUserById:"https://localhost:44349/api/Auth/GetUserById?id="
 };
 
 /*
